@@ -4,6 +4,10 @@ $( document ).ready(function() {
     $('[data-toggle="tooltip"]').tooltip()
   });
 
+  $("#exit-icon").click(function() {
+    window.location.href = "index.html";
+  });
+
 // This code is to filter the input and select the next input box
 
 // Restricts input for each element in the set of matched elements to the given inputFilter.
