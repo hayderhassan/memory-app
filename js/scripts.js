@@ -37,7 +37,7 @@ $( document ).ready(function() {
 
   var countdownTimer = function(){
       if(counter == 0){
-        $("#countdown-text").html("Time up!");
+        $("#countdown-text").html("Time up!", clearCards());
       } else {
         $("#countdown").html(counter);
           counter--;
@@ -52,18 +52,8 @@ function generateRandomNumber() {
   return randomNumber = Math.floor((Math.random() * 9) + 1);
 };
 
-// function countdownTimer() {
-//   $("#countdown").html(countdown);
-//   counter--;
-//     if (counter == 0) {
-//         // Display a login box
-//         alert("finished");
-//     }
-// }, 1000);
-
-// function countdownTimer() {
-//   setTimeout(function(){
-//     $("#countdown").html(countdown);
-//     counter--;
-//   }, 1000);
-// }
+function clearCards() {
+  $(".question-card").each(function( index ) {
+    $(this).html("");
+  });
+}
