@@ -1,10 +1,11 @@
 * {
   margin: auto;
-  background-color: white !important;
+  background-color: white;
 }
 
 .row {
   /* border: 1px solid red; */
+  padding: 10px 0px;
 }
 
 .col {
@@ -19,6 +20,10 @@
   align-items: center;
 }
 
+.jumbotron {
+  background-color: white;
+}
+
 .number-card {
   height: 20em;
   padding: 5px;
@@ -26,4 +31,26 @@
 
 p {
   font-size: 10em;
+}
+
+.game-icon {
+  /* border: 1px solid red; */
+  padding: 5px;
+  font-size: 2.5em;
+  cursor: pointer;
+}
+
+#icon-container {
+  /* border: 1px solid green; */
+  text-align: right;
+}
+
+#restart-icon, #exit-icon {
+  transition: 0.9s;
+}
+
+#restart-icon:hover, #exit-icon:hover {
+  color: black !important;
+  transition: 0.9s;
+  transform: rotate(180deg);
 }

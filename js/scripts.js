@@ -1,5 +1,9 @@
 $( document ).ready(function() {
 
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+
 // This code is to filter the input and select the next input box
 
 // Restricts input for each element in the set of matched elements to the given inputFilter.
