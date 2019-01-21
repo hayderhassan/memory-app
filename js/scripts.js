@@ -1,3 +1,6 @@
+var inputs = [];
+var currentInput = 0;
+
 $( document ).ready(function() {
 
   $(function () {
@@ -10,32 +13,25 @@ $( document ).ready(function() {
 
 // This code is to filter the input and select the next input box
 
-// Restricts input for each element in the set of matched elements to the given inputFilter.
-  (function($) {
-    $.fn.inputFilter = function(inputFilter) {
-      return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function() {
-        if (inputFilter(this.value)) {
-          this.oldValue = this.value;
-          this.oldSelectionStart = this.selectionStart;
-          this.oldSelectionEnd = this.selectionEnd;
-        } else if (this.hasOwnProperty("oldValue")) {
-          this.value = this.oldValue;
-          this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-        }
-      });
-    };
-  }(jQuery));
-
-  $('.number-input').inputFilter(function(value) {
-    return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9);
+ $('.number-input').keypress(function(e) {
+//  A function to filter the input for number only
+    if (isNaN(String.fromCharCode(e.which))  ) e.preventDefault();
   });
 
   $('.number-input').keyup(function(e) {
+//  A function to change focus to the next input after keypress
     var code = e.which;
     // Number key code for number row and key pad from this reference https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-    if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105))
-      $(this).next('.number-input').focus();
+    if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) {
+      currentInput++;
+      $(this).attr("contenteditable", "false");
+      if (currentInput === 2)
+        checkNumbers();
+      else
+        inputs[currentInput].focus();
+    }
   });
+
 
   $(".question-card").each(function( index ) {
     $(this).html(generateRandomNumber());
@@ -63,5 +59,13 @@ function generateRandomNumber() {
 function clearCards() {
   $(".question-card").each(function( index ) {
     $(this).html("");
+    $(this).attr("contenteditable", "true");
+    inputs.push($(this));
   });
+  
+  inputs[currentInput].focus();
+}
+
+function checkNumbers() {
+// A function to check if the numbers entered were the same
 }
