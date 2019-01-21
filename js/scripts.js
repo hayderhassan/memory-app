@@ -4,6 +4,8 @@ var currentLevel = 1;
 
 $( document ).ready(function() {
 
+  showCurrentLevel();
+
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   });
@@ -55,6 +57,10 @@ $( document ).ready(function() {
 
 });
 
+function showCurrentLevel() {
+  $("#current-level").html("Level " + currentLevel);
+};
+
 function generateRandomNumber() {
   return Math.floor((Math.random() * 9) + 1);
 };
@@ -78,6 +84,6 @@ function finishedLevel() {
       $("#countdown-text").html("Good job! Click report to see your results.");
     } else {
       currentLevel++;
-      $("#countdown-text").html("Click the next button when you're ready for the next level.");
+      $("#countdown-text").html("Click the next button when you're ready to take on Level " + currentLevel);
     }
 }

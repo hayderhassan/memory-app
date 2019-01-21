@@ -33,6 +33,10 @@ p {
   font-size: 10em;
 }
 
+#current-level {
+  font-size: 2.5em;
+}
+
 .game-icon {
   /* border: 1px solid red; */
   padding: 5px;
