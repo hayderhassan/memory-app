@@ -1,6 +1,6 @@
 
 
-// This code is to filter the input and select the next input box 
+// This code is to filter the input and select the next input box
 
 // Restricts input for each element in the set of matched elements to the given inputFilter.
 (function($) {
@@ -19,7 +19,7 @@
 }(jQuery));
 
 $('.number-input').inputFilter(function(value) {
-  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9); 
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9);
 });
 
 $('.number-input').keyup(function(e) {
@@ -28,3 +28,11 @@ $('.number-input').keyup(function(e) {
   if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105))
     $(this).next('.number-input').focus();
 });
+
+$(".question-card").each(function( index ) {
+  $(this).html(generateRandomNumber());
+});
+
+function generateRandomNumber() {
+  return randomNumber = Math.floor((Math.random() * 9) + 1);
+}
