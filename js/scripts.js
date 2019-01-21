@@ -45,7 +45,7 @@ $( document ).ready(function() {
 
   var countdownTimer = function(){
       if(counter == 0){
-        $("#countdown-text").html("Time up!", clearCards());
+        $("#countdown-text").html("Time's up! Now try and recall all the items you just saw.", clearCards());
       } else {
         $("#countdown").html(counter);
           counter--;
