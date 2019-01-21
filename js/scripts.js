@@ -5,6 +5,7 @@ var currentLevel = 1;
 $( document ).ready(function() {
 
   showCurrentLevel();
+  $("#next-button").hide();
 
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -46,14 +47,19 @@ $( document ).ready(function() {
 
   var countdownTimer = function(){
       if(counter == 0){
-        $("#countdown-text").html("Time's up! Now try and recall all the items you just saw.", clearCards());
+        $("#timer").html("0", clearCards());
+        $("#game-info").html("Type what you can remember.");
       } else {
-        $("#countdown").html(counter);
+        $("#timer").html(counter);
           counter--;
           setTimeout(countdownTimer, 1000); // check again in a second
       }
   };
   countdownTimer();
+
+  $("#next-button").click(function(){
+    goToNextLevel();
+  });
 
 });
 
@@ -81,9 +87,27 @@ function checkNumbers() {
 
 function finishedLevel() {
     if (currentLevel == 6) {
-      $("#countdown-text").html("Good job! Click report to see your results.");
+      $("#game-info").html("Good job! Click report to see your results.");
     } else {
       currentLevel++;
-      $("#countdown-text").html("Click the next button when you're ready to take on Level " + currentLevel);
+      $("#game-info").html("Click the button below when you're ready to take on Level " + currentLevel);
     }
+    showNextButton();
+}
+
+function showNextButton() {
+  if (currentLevel == 6) {
+    $("#next-button").html("See your results!");
+  } else {
+    $("#next-button").html("Go to Level " + currentLevel);
+  }
+  $("#next-button").show();
+}
+
+function goToNextLevel() {
+  if (currentLevel == 6) {
+    alert("Show results");
+  } else {
+      alert("Go to level " + currentLevel);
+  }
 }

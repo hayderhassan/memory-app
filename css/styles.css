@@ -58,3 +58,11 @@ p {
   transition: 0.9s;
   transform: rotate(180deg);
 }
+
+#next-button {
+  font-size: 2em;
+}
+
+#timer {
+  font-size: 6em;
+}

@@ -12,12 +12,11 @@
 <body>
 <div class="jumbotron jumbotron-fluid vertical-center">
   <div class="container">
-    <div class="row text-center">
+    <div id="info-bar" class="row text-center">
       <div class="col text-left">
         <span id="current-level"></span>
       </div>
-      <div class="col text-center">
-      </div>
+      <div id="timer" class="col text-center"></div>
 
       <div id="icon-container" class="col">
         <i id="restart-icon" class="game-icon fas fa-redo text-info" data-toggle="tooltip" data-placement="top" title="Restart Current Level"></i>
@@ -26,9 +25,9 @@
     </div>
     <div class="row text-center">
       <div class="col text-center">
-        <div class="card border-success bg-success mb-3">
-          <div class="card-body bg-success">
-            <h1 id="countdown-text" class="card-text bg-success">You have <span id="countdown" class="bg-success text-warning font-weight-bold">5</span> seconds to memorise the items below!</h1>
+        <div class="card border-success mb-3">
+          <div class="card-body">
+            <h3 id="game-info" class="card-text">Memorise the items below.</h3>
           </div>
         </div>
       </div>
@@ -49,6 +48,11 @@
         </div>
       </div>
 
+    </div>
+    <div class="row">
+      <div class="col">
+        <button id="next-button" type="button" class="btn btn-success btn-lg btn-block"></button>
+      </div>
     </div>
   </div>
 </div>
