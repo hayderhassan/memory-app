@@ -1,5 +1,6 @@
 var inputs = [];
 var currentInput = 0;
+var currentLevel = 1;
 
 $( document ).ready(function() {
 
@@ -25,10 +26,12 @@ $( document ).ready(function() {
     if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) {
       currentInput++;
       $(this).attr("contenteditable", "false");
-      if (currentInput === 2)
+      if (currentInput === (2 * currentLevel)) {
         checkNumbers();
-      else
+        finishedLevel();
+      } else {
         inputs[currentInput].focus();
+      }
     }
   });
 
@@ -53,7 +56,7 @@ $( document ).ready(function() {
 });
 
 function generateRandomNumber() {
-  return randomNumber = Math.floor((Math.random() * 9) + 1);
+  return Math.floor((Math.random() * 9) + 1);
 };
 
 function clearCards() {
@@ -62,10 +65,19 @@ function clearCards() {
     $(this).attr("contenteditable", "true");
     inputs.push($(this));
   });
-  
+
   inputs[currentInput].focus();
 }
 
 function checkNumbers() {
 // A function to check if the numbers entered were the same
+}
+
+function finishedLevel() {
+    if (currentLevel == 6) {
+      $("#countdown-text").html("Good job! Click report to see your results.");
+    } else {
+      currentLevel++;
+      $("#countdown-text").html("Click the next button when you're ready for the next level.");
+    }
 }
