@@ -1,11 +1,17 @@
 var inputs = [];
 var currentInput = 0;
 var currentLevel = 1;
+sessionStorage.level = "1";
 
-$( document ).ready(function() {
+var questionCard = '<div class="col text-center">' +
+                    '<div class="card d-flex number-card border-primary bg-primary mb-3">' +
+                    '<div class="card-body align-items-center d-flex justify-content-center bg-primary">' +
+                    '<p class="card-text question-card bg-primary number-input"></p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
 
-  showCurrentLevel();
-  $("#next-button").hide();
+$(document).ready(function() {
 
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -38,13 +44,21 @@ $( document ).ready(function() {
     }
   });
 
+  runGame();
 
-  $(".question-card").each(function( index ) {
-    $(this).html(generateRandomNumber());
+  $("#next-button").click(function(){
+    $(this).hide();
+    goToNextLevel();
   });
 
-  var counter = 5;
+});
 
+function runGame() {
+  $("#next-button").hide();
+  showCurrentLevel();
+  showQuestions();
+  $("#game-info").html("Memorise the items below.");
+  var counter = 5;
   var countdownTimer = function(){
       if(counter == 0){
         $("#timer").html("0", clearCards());
@@ -56,15 +70,10 @@ $( document ).ready(function() {
       }
   };
   countdownTimer();
-
-  $("#next-button").click(function(){
-    goToNextLevel();
-  });
-
-});
+};
 
 function showCurrentLevel() {
-  $("#current-level").html("Level " + currentLevel);
+  $("#current-level").html("Level " + sessionStorage.level);
 };
 
 function generateRandomNumber() {
@@ -77,7 +86,6 @@ function clearCards() {
     $(this).attr("contenteditable", "true");
     inputs.push($(this));
   });
-
   inputs[currentInput].focus();
 }
 
@@ -86,28 +94,41 @@ function checkNumbers() {
 }
 
 function finishedLevel() {
-    if (currentLevel == 6) {
-      $("#game-info").html("Good job! Click report to see your results.");
+  // alert(sessionStorage.level);
+    if (sessionStorage.level == 6) {
+      $("#game-info").html("Good job! Click the button below to see your results.");
     } else {
       currentLevel++;
-      $("#game-info").html("Click the button below when you're ready to take on Level " + currentLevel);
+      $("#game-info").html("Click the button below when you're ready to take on Level " + (parseInt(sessionStorage.level) + 1));
     }
     showNextButton();
 }
 
 function showNextButton() {
-  if (currentLevel == 6) {
+  if (sessionStorage.level == 6) {
     $("#next-button").html("See your results!");
   } else {
-    $("#next-button").html("Go to Level " + currentLevel);
+    $("#next-button").html("Go to Level " + (parseInt(sessionStorage.level) + 1));
   }
   $("#next-button").show();
 }
 
 function goToNextLevel() {
-  if (currentLevel == 6) {
+  if (sessionStorage.level == 6) {
     alert("Show results");
   } else {
-      alert("Go to level " + currentLevel);
+    sessionStorage.level++;
+    runGame();
   }
+}
+
+function showQuestions() {
+  var numberOfQuestions = 2 * sessionStorage.level;
+  // for (var i = 0; i < numberOfQuestions; i++) {
+  //   // $(questionCard).insertAfter("#question-section");
+  //   // $("#questions").append(questionCard);
+  // }
+  $(".question-card").each(function( index ) {
+    $(this).html(generateRandomNumber());
+  });
 }
