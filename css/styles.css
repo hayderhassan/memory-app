@@ -61,6 +61,7 @@ p {
 
 #next-button {
   font-size: 2em;
+  display: none;
 }
 
 #timer {
