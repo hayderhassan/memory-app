@@ -39,11 +39,6 @@ $( document ).ready(function() {
     }
   });
 
-
-  // $(".question-card").each(function( index ) {
-  //   $(this).html(generateRandomNumber());
-  // });
-
   runGame();
 
   $("#next-button").click(function(){
@@ -55,6 +50,7 @@ $( document ).ready(function() {
 
 function runGame() {
   showQuestions();
+  $("#game-info").html("Memorise the items below.");
   var counter = 5;
   var countdownTimer = function(){
       if(counter == 0){
@@ -93,7 +89,7 @@ function checkNumbers() {
 function finishedLevel() {
   // alert(sessionStorage.level);
     if (sessionStorage.level == 6) {
-      $("#game-info").html("Good job! Click report to see your results.");
+      $("#game-info").html("Good job! Click the button below to see your results.");
     } else {
       currentLevel++;
       $("#game-info").html("Click the button below when you're ready to take on Level " + (parseInt(sessionStorage.level) + 1));
