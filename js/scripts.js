@@ -3,10 +3,15 @@ var currentInput = 0;
 var currentLevel = 1;
 sessionStorage.level = "1";
 
-$( document ).ready(function() {
+var questionCard = '<div class="col text-center">' +
+                    '<div class="card d-flex number-card border-primary bg-primary mb-3">' +
+                    '<div class="card-body align-items-center d-flex justify-content-center bg-primary">' +
+                    '<p class="card-text question-card bg-primary number-input"></p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
 
-  showCurrentLevel();
-  $("#next-button").hide();
+$(document).ready(function() {
 
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -49,6 +54,8 @@ $( document ).ready(function() {
 });
 
 function runGame() {
+  $("#next-button").hide();
+  showCurrentLevel();
   showQuestions();
   $("#game-info").html("Memorise the items below.");
   var counter = 5;
@@ -111,12 +118,16 @@ function goToNextLevel() {
     alert("Show results");
   } else {
     sessionStorage.level++;
-    showCurrentLevel();
     runGame();
   }
 }
 
 function showQuestions() {
+  var numberOfQuestions = 2 * sessionStorage.level;
+  // for (var i = 0; i < numberOfQuestions; i++) {
+  //   // $(questionCard).insertAfter("#question-section");
+  //   // $("#questions").append(questionCard);
+  // }
   $(".question-card").each(function( index ) {
     $(this).html(generateRandomNumber());
   });
