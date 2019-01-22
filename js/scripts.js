@@ -1,6 +1,7 @@
 var inputs = [];
 var currentInput = 0;
 var currentLevel = 1;
+sessionStorage.level = "1";
 
 $( document ).ready(function() {
 
@@ -39,12 +40,22 @@ $( document ).ready(function() {
   });
 
 
-  $(".question-card").each(function( index ) {
-    $(this).html(generateRandomNumber());
+  // $(".question-card").each(function( index ) {
+  //   $(this).html(generateRandomNumber());
+  // });
+
+  runGame();
+
+  $("#next-button").click(function(){
+    $(this).hide();
+    goToNextLevel();
   });
 
-  var counter = 5;
+});
 
+function runGame() {
+  showQuestions();
+  var counter = 5;
   var countdownTimer = function(){
       if(counter == 0){
         $("#timer").html("0", clearCards());
@@ -56,15 +67,10 @@ $( document ).ready(function() {
       }
   };
   countdownTimer();
-
-  $("#next-button").click(function(){
-    goToNextLevel();
-  });
-
-});
+};
 
 function showCurrentLevel() {
-  $("#current-level").html("Level " + currentLevel);
+  $("#current-level").html("Level " + sessionStorage.level);
 };
 
 function generateRandomNumber() {
@@ -77,7 +83,6 @@ function clearCards() {
     $(this).attr("contenteditable", "true");
     inputs.push($(this));
   });
-
   inputs[currentInput].focus();
 }
 
@@ -86,28 +91,37 @@ function checkNumbers() {
 }
 
 function finishedLevel() {
-    if (currentLevel == 6) {
+  // alert(sessionStorage.level);
+    if (sessionStorage.level == 6) {
       $("#game-info").html("Good job! Click report to see your results.");
     } else {
       currentLevel++;
-      $("#game-info").html("Click the button below when you're ready to take on Level " + currentLevel);
+      $("#game-info").html("Click the button below when you're ready to take on Level " + (parseInt(sessionStorage.level) + 1));
     }
     showNextButton();
 }
 
 function showNextButton() {
-  if (currentLevel == 6) {
+  if (sessionStorage.level == 6) {
     $("#next-button").html("See your results!");
   } else {
-    $("#next-button").html("Go to Level " + currentLevel);
+    $("#next-button").html("Go to Level " + (parseInt(sessionStorage.level) + 1));
   }
   $("#next-button").show();
 }
 
 function goToNextLevel() {
-  if (currentLevel == 6) {
+  if (sessionStorage.level == 6) {
     alert("Show results");
   } else {
-      alert("Go to level " + currentLevel);
+    sessionStorage.level++;
+    showCurrentLevel();
+    runGame();
   }
+}
+
+function showQuestions() {
+  $(".question-card").each(function( index ) {
+    $(this).html(generateRandomNumber());
+  });
 }
