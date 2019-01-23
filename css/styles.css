@@ -59,11 +59,11 @@ p {
   text-align: right;
 }
 
-#restart-icon, #exit-icon {
+#settings-icon, #restart-icon, #exit-icon {
   transition: 0.9s;
 }
 
-#restart-icon:hover, #exit-icon:hover {
+#settings-icon:hover, #restart-icon:hover, #exit-icon:hover {
   color: black !important;
   transition: 0.9s;
   transform: rotate(180deg);
