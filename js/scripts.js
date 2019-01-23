@@ -81,7 +81,6 @@ function showCurrentLevel() {
 };
 
 function generateRandomNumber() {
-  // return Math.floor((Math.random() * 9) + 1);
   return Math.floor(Math.random() * 10);
 };
 
