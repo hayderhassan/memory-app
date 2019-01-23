@@ -4,7 +4,34 @@ var currentLevel = 1;
 var startTime;
 var endTime;
 var totalTime = 0;
-sessionStorage.level = "1";
+sessionStorage.level = 1;
+
+var levels = {
+  1: {
+    "questions": [],
+    "answers": []
+  },
+  2: {
+    "questions": [],
+    "answers": []
+  },
+  3: {
+    "questions": [],
+    "answers": []
+  },
+  4: {
+    "questions": [],
+    "answers": []
+  },
+  5: {
+    "questions": [],
+    "answers": []
+  },
+  6: {
+    "questions": [],
+    "answers": []
+  },
+};
 
 var questionCard = '<div class="col text-center">' +
                     '<div class="card d-flex number-card border-primary bg-primary mb-3">' +
@@ -118,6 +145,7 @@ function showNextButton() {
 }
 
 function goToNextLevel() {
+  storeAnswers();
   if (sessionStorage.level == 6) {
     showReport();
   } else {
@@ -133,7 +161,9 @@ function showQuestions() {
   //   // $("#questions").append(questionCard);
   // }
   $(".question-card").each(function( index ) {
-    $(this).html(generateRandomNumber());
+    var question = generateRandomNumber();
+    $(this).html(question);
+    levels[sessionStorage.level]["questions"].push(question);
   });
 }
 
@@ -151,4 +181,19 @@ function stopWatch() {
 function showReport() {
   $("#game-screen").hide();
   $("#report-screen").show();
+  var results = "";
+  for (var level in levels) {
+    var obj = levels[level];
+    for (var prop in obj) {
+        results += level + ": " + prop + " = " + obj[prop] + "\n";
+    }
+  }
+  alert(results);
+}
+
+function storeAnswers() {
+  $(".question-card").each(function( index ) {
+    var answer = $(this).html();
+    levels[sessionStorage.level]["answers"].push(answer);
+  });
 }
