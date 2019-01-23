@@ -149,5 +149,6 @@ function stopWatch() {
 }
 
 function showReport() {
-  alert("Show report");
+  $("#game-screen").hide();
+  $("#report-screen").show();
 }
