@@ -1,6 +1,9 @@
 var inputs = [];
 var currentInput = 0;
 var currentLevel = 1;
+var startTime;
+var endTime;
+var totalTime = 0;
 sessionStorage.level = "1";
 
 var questionCard = '<div class="col text-center">' +
@@ -63,6 +66,7 @@ function runGame() {
       if(counter == 0){
         $("#timer").html("0", clearCards());
         $("#game-info").html("Type what you can remember.");
+        startWatch();
       } else {
         $("#timer").html(counter);
           counter--;
@@ -94,7 +98,7 @@ function checkNumbers() {
 }
 
 function finishedLevel() {
-  // alert(sessionStorage.level);
+    stopWatch();
     if (sessionStorage.level == 6) {
       $("#game-info").html("Good job! Click the button below to see your results.");
     } else {
@@ -131,4 +135,15 @@ function showQuestions() {
   $(".question-card").each(function( index ) {
     $(this).html(generateRandomNumber());
   });
+}
+
+function startWatch() {
+  startTime = new Date();
+}
+
+function stopWatch() {
+  endTime = new Date();
+  var timeDiff = endTime - startTime; //in ms
+  var seconds = Math.round(timeDiff / 1000);
+  totalTime += seconds;
 }
