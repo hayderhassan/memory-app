@@ -115,7 +115,7 @@ function showNextButton() {
 
 function goToNextLevel() {
   if (sessionStorage.level == 6) {
-    alert("Show results");
+    showReport();
   } else {
     sessionStorage.level++;
     runGame();
@@ -131,4 +131,8 @@ function showQuestions() {
   $(".question-card").each(function( index ) {
     $(this).html(generateRandomNumber());
   });
+}
+
+function showReport() {
+  alert("Show report");
 }
