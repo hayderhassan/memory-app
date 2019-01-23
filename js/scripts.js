@@ -33,6 +33,8 @@ var levels = {
   },
 };
 
+var toNode = html => new DOMParser().parseFromString(html, 'text/html').body.firstChild;
+
 var questionCard = '<div class="col text-center">' +
                     '<div class="card d-flex number-card border-primary bg-primary mb-3">' +
                     '<div class="card-body align-items-center d-flex justify-content-center bg-primary">' +
@@ -51,29 +53,6 @@ $(document).ready(function() {
     window.location.href = "index.html";
   });
 
-// This code is to filter the input and select the next input box
-
- $('.number-input').keypress(function(e) {
-//  A function to filter the input for number only
-    if (isNaN(String.fromCharCode(e.which))  ) e.preventDefault();
-  });
-
-  $('.number-input').keyup(function(e) {
-//  A function to change focus to the next input after keypress
-    var code = e.which;
-    // Number key code for number row and key pad from this reference https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-    if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) {
-      currentInput++;
-      $(this).attr("contenteditable", "false");
-      if (currentInput === (2 * currentLevel)) {
-        checkNumbers();
-        finishedLevel();
-      } else {
-        inputs[currentInput].focus();
-      }
-    }
-  });
-
   runGame();
 
   $("#next-button").click(function(){
@@ -83,9 +62,31 @@ $(document).ready(function() {
 
 });
 
+function numberInputKeypress(e) {
+//  A function to filter the input for number only
+  if (isNaN(String.fromCharCode(e.which))  ) e.preventDefault();
+}
+
+function numberInputKeyup(e) {
+//  A function to change focus to the next input after keypress
+  var code = e.which;
+  // Number key code for number row and key pad from this reference https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+  if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) {
+    currentInput++;
+    $(this).attr("contenteditable", "false");
+    if (currentInput === (2 * currentLevel)) {
+      checkNumbers();
+      finishedLevel();
+    } else {
+      inputs[currentInput].focus();
+    }
+  }
+}
+
 function runGame() {
   $("#next-button").hide();
   showCurrentLevel();
+  clearQuestions();
   showQuestions();
   $("#game-info").html("Memorise the items below.");
   var counter = 5;
@@ -154,12 +155,30 @@ function goToNextLevel() {
   }
 }
 
+function clearQuestions() {
+  inputs = [];
+  currentInput = 0;
+  var cards = document.getElementById("qcards");
+  if (cards.hasChildNodes())
+    while (cards.firstChild)
+      cards.removeChild(cards.firstChild);
+}
+
 function showQuestions() {
   var numberOfQuestions = 2 * sessionStorage.level;
-  // for (var i = 0; i < numberOfQuestions; i++) {
-  //   // $(questionCard).insertAfter("#question-section");
-  //   // $("#questions").append(questionCard);
-  // }
+  for (var i = 0; i < numberOfQuestions; i++) {
+    var card = toNode(questionCard);
+    
+    $(card).keypress(function(e) {
+      numberInputKeypress(e);
+    });
+    
+    $(card).keyup(function(e) {
+      numberInputKeyup(e);
+    });
+    
+    document.getElementById("qcards").appendChild(card);
+  }
   $(".question-card").each(function( index ) {
     var question = generateRandomNumber();
     $(this).html(question);
