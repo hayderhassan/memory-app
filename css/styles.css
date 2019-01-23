@@ -21,7 +21,13 @@
 }
 
 #welcome-screen {
-  /* background-color: green; */
+  border: 2px solid blue;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#start-button {
+  font-size: 2em;
 }
 
 .jumbotron {
