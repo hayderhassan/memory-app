@@ -122,15 +122,38 @@ function runGame() {
       }
   };
   countdownTimer();
-};
+}
 
 function showCurrentLevel() {
   $("#current-level").html("Level " + sessionStorage.level);
-};
+}
 
 function generateRandomNumber() {
   return Math.floor(Math.random() * 10);
-};
+}
+
+function generateRandomLetter() {
+  var code = Math.floor(Math.random() * 26) + 65;
+  return String.fromCharCode(code);
+}
+
+function generateRandomNumberOrLetter() {
+  var random = Math.floor(Math.random() * 101);
+  if (random >= 50) {
+    return generateRandomNumber();
+  }
+  return generateRandomLetter();
+}
+
+function generateQuestion() {
+  if (sessionStorage.symbols == "numbers") {
+    return generateRandomNumber();
+  } else if (sessionStorage.symbols == "letters") {
+    return generateRandomLetter();
+  } else {
+    return generateRandomNumberOrLetter();
+  }
+}
 
 function clearCards() {
   $(".question-card").each(function( index ) {
@@ -200,7 +223,7 @@ function showQuestions() {
     document.getElementById("qcards").appendChild(card);
   }
   $(".question-card").each(function( index ) {
-    var question = generateRandomNumber();
+    var question = generateQuestion();
     $(this).html(question);
     levels[sessionStorage.level]["questions"].push(question);
   });
