@@ -35,9 +35,73 @@
     </div>
     <div class="row">
       <div class="col-md-10">
-        <a id="start-button" class="btn btn-success btn-lg btn-block" href="game.html">Start</a>
+        <a id="start-button" class="homepage-buttons btn btn-success btn-lg btn-block" href="game.html">Start Game</a>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10">
+          <a id="settings-button" class="homepage-buttons btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#settingsModal" data-whatever="@mdo">Change Settings</a>
+        </div>
+      </div>
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary w-100">
+        <h5 class="modal-title" id="settingsModalLabel"><strong>Settings</strong></h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <label for="message-text" class="col-form-label"><strong>Symbols to memorise:</strong></label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="numbers" value="option1" checked>
+            <label class="form-check-label" for="numbers">
+              Numbers
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="letters" value="option2">
+            <label class="form-check-label" for="letters">
+              Letters
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="combination" value="option3">
+            <label class="form-check-label" for="combination">
+              Combination of Numbers and Letters
+            </label>
+          </div>
+          <hr>
+          </form>
+
+          <form>
+
+          <label for="message-text" class="col-form-label"><strong>No. of seconds to memorise items:</strong></label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="five-seconds" value="option1" checked>
+            <label class="form-check-label" for="five-seconds">
+              5
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="ten-seconds" value="option2">
+            <label class="form-check-label" for="ten-seconds">
+              10
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="fifteen-seconds" value="option3">
+            <label class="form-check-label" for="fifteen-seconds">
+              15
+            </label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
+  </div>
+</div>
 
   </div>
 </div>
