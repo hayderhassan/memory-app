@@ -4,9 +4,38 @@ var currentLevel = 1;
 var startTime;
 var endTime;
 var totalTime = 0;
-sessionStorage.level = "1";
+sessionStorage.level = 1;
 
-var questionCard = '<div class="col text-center">' +
+var levels = {
+  1: {
+    "questions": [],
+    "answers": []
+  },
+  2: {
+    "questions": [],
+    "answers": []
+  },
+  3: {
+    "questions": [],
+    "answers": []
+  },
+  4: {
+    "questions": [],
+    "answers": []
+  },
+  5: {
+    "questions": [],
+    "answers": []
+  },
+  6: {
+    "questions": [],
+    "answers": []
+  },
+};
+
+var toNode = html => new DOMParser().parseFromString(html, 'text/html').body.firstChild;
+
+var questionCard = '<div class="col-3 text-center">' +
                     '<div class="card d-flex number-card border-primary bg-primary mb-3">' +
                     '<div class="card-body align-items-center d-flex justify-content-center bg-primary">' +
                     '<p class="card-text question-card bg-primary number-input"></p>' +
@@ -24,29 +53,6 @@ $(document).ready(function() {
     window.location.href = "index.html";
   });
 
-// This code is to filter the input and select the next input box
-
- $('.number-input').keypress(function(e) {
-//  A function to filter the input for number only
-    if (isNaN(String.fromCharCode(e.which))  ) e.preventDefault();
-  });
-
-  $('.number-input').keyup(function(e) {
-//  A function to change focus to the next input after keypress
-    var code = e.which;
-    // Number key code for number row and key pad from this reference https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-    if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) {
-      currentInput++;
-      $(this).attr("contenteditable", "false");
-      if (currentInput === (2 * currentLevel)) {
-        checkNumbers();
-        finishedLevel();
-      } else {
-        inputs[currentInput].focus();
-      }
-    }
-  });
-
   runGame();
 
   $("#next-button").click(function(){
@@ -56,9 +62,32 @@ $(document).ready(function() {
 
 });
 
+function numberInputKeypress(e) {
+//  A function to filter the input for number only
+  // var letters = /^[A-Za-z]+$/;
+  // if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
+}
+
+function numberInputKeyup(e) {
+//  A function to change focus to the next input after keypress
+  var code = e.which;
+  // Number key code for number row and key pad from this reference https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+  if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+    currentInput++;
+    $(this).attr("contenteditable", "false");
+    if (currentInput === (2 * currentLevel)) {
+      checkNumbers();
+      finishedLevel();
+    } else {
+      inputs[currentInput].focus();
+    }
+  }
+}
+
 function runGame() {
   $("#next-button").hide();
   showCurrentLevel();
+  clearQuestions();
   showQuestions();
   $("#game-info").html("Memorise the items below.");
   var counter = 5;
@@ -81,7 +110,7 @@ function showCurrentLevel() {
 };
 
 function generateRandomNumber() {
-  return Math.floor((Math.random() * 9) + 1);
+  return Math.floor(Math.random() * 10);
 };
 
 function clearCards() {
@@ -118,22 +147,43 @@ function showNextButton() {
 }
 
 function goToNextLevel() {
+  storeAnswers();
   if (sessionStorage.level == 6) {
-    alert("Show results");
+    showReport();
   } else {
     sessionStorage.level++;
     runGame();
   }
 }
 
+function clearQuestions() {
+  inputs = [];
+  currentInput = 0;
+  var cards = document.getElementById("qcards");
+  if (cards.hasChildNodes())
+    while (cards.firstChild)
+      cards.removeChild(cards.firstChild);
+}
+
 function showQuestions() {
   var numberOfQuestions = 2 * sessionStorage.level;
-  // for (var i = 0; i < numberOfQuestions; i++) {
-  //   // $(questionCard).insertAfter("#question-section");
-  //   // $("#questions").append(questionCard);
-  // }
+  for (var i = 0; i < numberOfQuestions; i++) {
+    var card = toNode(questionCard);
+
+    $(card).keypress(function(e) {
+      numberInputKeypress(e);
+    });
+
+    $(card).keyup(function(e) {
+      numberInputKeyup(e);
+    });
+
+    document.getElementById("qcards").appendChild(card);
+  }
   $(".question-card").each(function( index ) {
-    $(this).html(generateRandomNumber());
+    var question = generateRandomNumber();
+    $(this).html(question);
+    levels[sessionStorage.level]["questions"].push(question);
   });
 }
 
@@ -146,4 +196,24 @@ function stopWatch() {
   var timeDiff = endTime - startTime; //in ms
   var seconds = Math.round(timeDiff / 1000);
   totalTime += seconds;
+}
+
+function showReport() {
+  $("#game-screen").hide();
+  $("#report-screen").show();
+  var results = "";
+  for (var level in levels) {
+    var obj = levels[level];
+    for (var prop in obj) {
+        results += level + ": " + prop + " = " + obj[prop] + "\n";
+    }
+  }
+  alert(results);
+}
+
+function storeAnswers() {
+  $(".question-card").each(function( index ) {
+    var answer = $(this).html();
+    levels[sessionStorage.level]["answers"].push(answer);
+  });
 }

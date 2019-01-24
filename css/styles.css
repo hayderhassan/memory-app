@@ -35,12 +35,16 @@
 }
 
 .number-card {
-  height: 20em;
+  height: 12em;
   padding: 5px;
 }
 
 p {
-  font-size: 10em;
+  font-size: 8em;
+}
+
+#report-screen {
+  display: none;
 }
 
 #current-level {
