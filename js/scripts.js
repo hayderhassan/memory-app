@@ -5,8 +5,6 @@ var startTime;
 var endTime;
 var totalTime = 0;
 sessionStorage.level = 1;
-// sessionStorage.timer = 5;
-// sessionStorage.symbols = "numbers";
 
 var levels = {
   1: {
@@ -47,9 +45,6 @@ var questionCard = '<div class="col-3 text-center">' +
 
 $(document).ready(function() {
 
-  // $('.myCheckbox').prop('checked', true);
-  // alert(sessionStorage.timer);
-
   if (sessionStorage.hasOwnProperty("timer")) {
     $(":radio[value=" + sessionStorage.timer + "]").prop('checked', true);
   } else {
@@ -67,7 +62,6 @@ $(document).ready(function() {
   $("#save-settings-button").click(function(){
     sessionStorage.timer = $("input[name='seconds']:checked").val();
     sessionStorage.symbols = $("input[name='symbols']:checked").val();
-    // alert(parseInt(sessionStorage.timer) + 7);
   });
 
   $(function () {
