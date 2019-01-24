@@ -64,14 +64,15 @@ $(document).ready(function() {
 
 function numberInputKeypress(e) {
 //  A function to filter the input for number only
-  if (isNaN(String.fromCharCode(e.which))  ) e.preventDefault();
+  // var letters = /^[A-Za-z]+$/;
+  // if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
 }
 
 function numberInputKeyup(e) {
 //  A function to change focus to the next input after keypress
   var code = e.which;
   // Number key code for number row and key pad from this reference https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-  if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) {
+  if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
     currentInput++;
     $(this).attr("contenteditable", "false");
     if (currentInput === (2 * currentLevel)) {
