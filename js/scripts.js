@@ -35,7 +35,7 @@ var levels = {
 
 var toNode = html => new DOMParser().parseFromString(html, 'text/html').body.firstChild;
 
-var questionCard = '<div class="col text-center">' +
+var questionCard = '<div class="col-3 text-center">' +
                     '<div class="card d-flex number-card border-primary bg-primary mb-3">' +
                     '<div class="card-body align-items-center d-flex justify-content-center bg-primary">' +
                     '<p class="card-text question-card bg-primary number-input"></p>' +
@@ -168,15 +168,15 @@ function showQuestions() {
   var numberOfQuestions = 2 * sessionStorage.level;
   for (var i = 0; i < numberOfQuestions; i++) {
     var card = toNode(questionCard);
-    
+
     $(card).keypress(function(e) {
       numberInputKeypress(e);
     });
-    
+
     $(card).keyup(function(e) {
       numberInputKeyup(e);
     });
-    
+
     document.getElementById("qcards").appendChild(card);
   }
   $(".question-card").each(function( index ) {
