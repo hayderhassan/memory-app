@@ -102,6 +102,11 @@ $(document).ready(function() {
     goToNextLevel();
   });
 
+  $("#restart-icon").click(function() {
+    // alert("Clicked");
+    runGame();
+  });
+
 });
 
 function numberInputKeypress(e) {
@@ -127,7 +132,7 @@ function numberInputKeyup(e) {
 
 function runGame() {
   $("#next-button").hide();
-  showReport();
+  // showReport();
   showCurrentLevel();
   clearQuestions();
   showQuestions();
@@ -213,7 +218,7 @@ function goToNextLevel() {
   if (sessionStorage.level == 6) {
     showReport();
   } else {
-    showReport();
+    // showReport();
     sessionStorage.level++;
     runGame();
   }
@@ -306,7 +311,7 @@ function checkAnswers() {
   } else {
     calcScore(q, a);
   }
-    alert("Score = " + levels[sessionStorage.level]["score"]);
+    // alert("Score = " + levels[sessionStorage.level]["score"]);
 }
 
 function isSameOrder(arr1, arr2) {
