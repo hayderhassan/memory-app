@@ -9,27 +9,45 @@ sessionStorage.level = 1;
 var levels = {
   1: {
     "questions": [],
-    "answers": []
+    "answers": [],
+    "score": 0,
+    "correct_order": false,
+    "duration": 0
   },
   2: {
     "questions": [],
-    "answers": []
+    "answers": [],
+    "score": 0,
+    "correct_order": false,
+    "duration": 0
   },
   3: {
     "questions": [],
-    "answers": []
+    "answers": [],
+    "score": 0,
+    "correct_order": false,
+    "duration": 0
   },
   4: {
     "questions": [],
-    "answers": []
+    "answers": [],
+    "score": 0,
+    "correct_order": false,
+    "duration": 0
   },
   5: {
     "questions": [],
-    "answers": []
+    "answers": [],
+    "score": 0,
+    "correct_order": false,
+    "duration": 0
   },
   6: {
     "questions": [],
-    "answers": []
+    "answers": [],
+    "score": 0,
+    "correct_order": false,
+    "duration": 0
   },
 };
 
@@ -42,6 +60,11 @@ var questionCard = '<div class="col-3 text-center">' +
                     '</div>' +
                     '</div>' +
                     '</div>';
+
+var correctSquare = '<i class="fas fa-square correct-square"></i>\n';
+var incorrectSquare = '<i class="fas fa-square wrong-square"></i>\n';
+var tick = '<i class="fas fa-check text-success"></i>';
+var cross = '<i class="fas fa-times text-danger"></i>';
 
 $(document).ready(function() {
 
@@ -79,8 +102,6 @@ $(document).ready(function() {
     goToNextLevel();
   });
 
-  showReport();
-
 });
 
 function numberInputKeypress(e) {
@@ -106,6 +127,7 @@ function numberInputKeyup(e) {
 
 function runGame() {
   $("#next-button").hide();
+  showReport();
   showCurrentLevel();
   clearQuestions();
   showQuestions();
@@ -165,10 +187,6 @@ function clearCards() {
   inputs[currentInput].focus();
 }
 
-function checkAnswers() {
-
-}
-
 function finishedLevel() {
     stopWatch();
     if (sessionStorage.level == 6) {
@@ -191,9 +209,11 @@ function showNextButton() {
 
 function goToNextLevel() {
   storeAnswers();
+  checkAnswers();
   if (sessionStorage.level == 6) {
     showReport();
   } else {
+    showReport();
     sessionStorage.level++;
     runGame();
   }
@@ -238,7 +258,12 @@ function stopWatch() {
   endTime = new Date();
   var timeDiff = endTime - startTime; //in ms
   var seconds = Math.round(timeDiff / 1000);
+  saveDuration(seconds);
   totalTime += seconds;
+}
+
+function saveDuration(duration) {
+  levels[sessionStorage.level].duration = duration;
 }
 
 function showReport() {
@@ -252,6 +277,7 @@ function showReport() {
     }
   }
   // alert(results);
+  populateTable();
 }
 
 function storeAnswers() {
@@ -259,4 +285,92 @@ function storeAnswers() {
     var answer = $(this).html();
     levels[sessionStorage.level]["answers"].push(answer);
   });
+}
+
+function test() {
+  var results = "";
+  for (var level in levels) {
+    var obj = levels[level];
+    for (var prop in obj) {
+        results += level + ": " + prop + " = " + obj[prop] + "\n";
+    }
+  }
+}
+
+function checkAnswers() {
+  var q = levels[sessionStorage.level]["questions"];
+  var a = levels[sessionStorage.level]["answers"];
+  if (isSameOrder(q,a)) {
+    levels[sessionStorage.level]["correct_order"] = true;
+    levels[sessionStorage.level]["score"] = 2 * sessionStorage.level;
+  } else {
+    calcScore(q, a);
+  }
+    alert("Score = " + levels[sessionStorage.level]["score"]);
+}
+
+function isSameOrder(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(parseInt(arr1[i]) !== parseInt(arr2[i]))
+            return false;
+    }
+    return true;
+}
+
+function calcScore(questions, answers) {
+  var q = questions.sort(function(a, b){return a - b});
+  var a = answers.sort(function(a, b){return a - b});
+  // for(var i = questions.length; i--;) {
+  //     if(parseInt(q[i]) == parseInt(a[i])) {
+  //       var current = levels[sessionStorage.level]["score"];
+  //       levels[sessionStorage.level]["score"] = parseInt(current) + 1;
+  //     }
+  // }
+//   alert("Level " + sessionStorage.level);
+// alert("q = " + q);
+// alert("a = " + a);
+  for (var i = 0; i < q.length; i++) {
+    for (var j = 0; j < a.length; j++) {
+      if (parseInt(q[i]) === parseInt(a[j])) {
+        // alert("removing " + a[j]);
+        a.splice(i,1);
+        // alert("q = " + q + "\na = " + a);
+        // alert("a = " + a);
+        var current_score = levels[sessionStorage.level]["score"];
+        // alert("Current score = " + current_score);
+        levels[sessionStorage.level]["score"] = parseInt(current_score) + 1;
+        break;
+      }
+    }
+  }
+
+}
+
+function populateTable() {
+  var results = "";
+  for (var level in levels) {
+    var lev = levels[level];
+    // for (var prop in lev) {
+    //     results += level + ": " + prop + " = " + lev[prop] + "\n";
+    //     alert(lev["score"]);
+    // }
+    var squares = "";
+    for (var i = 0; i < parseInt(lev["score"]); i++) {
+      squares += correctSquare;
+    }
+    var score = parseInt(lev["score"]);
+    while (score < (parseInt(level) * 2)) {
+      squares += incorrectSquare;
+      score++;
+    }
+    $("#" + level).next().html(squares);
+    if (lev["correct_order"]) {
+      $("#" + level).next().next().html(tick);
+    } else {
+      $("#" + level).next().next().html(cross);
+    }
+    $("#" + level).next().next().next().html(lev["duration"]);
+  }
 }

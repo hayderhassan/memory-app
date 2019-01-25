@@ -81,10 +81,6 @@ p {
   font-size: 6em;
 }
 
-table {
-  /* font-size: 1.5em; */
-}
-
 .table td.fit,
 .table th.fit {
     white-space: nowrap;
