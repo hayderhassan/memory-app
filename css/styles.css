@@ -80,3 +80,25 @@ p {
 #timer {
   font-size: 6em;
 }
+
+table {
+  /* font-size: 1.5em; */
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.table-bordered td, .table-bordered th {
+  border: 1px solid black !important;
+}
+
+.correct-square {
+  color: green !important;
+}
+
+.wrong-square {
+  color: red !important;
+}

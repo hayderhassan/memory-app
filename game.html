@@ -47,38 +47,70 @@
   <div id="report-screen" class="container">
     <div class="row">
       <h1>Report</h1>
-      <div class="col">
-        <table class="table table-dark">
-          <thead>
+    </div>
+    <div class="row">
+      <div class="col-8 text-center">
+        <table class="table table-bordered">
+          <thead class="bg-primary">
             <tr>
               <th scope="col">Level</th>
-              <th scope="col">Correct Answers</th>
+              <th scope="col">No. of Correct Answers</th>
+              <th scope="col">Recalled Answers in Correct Order</th>
+              <th scope="col">Time Taken to Recall Answers</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="table-info">
               <th scope="row">1</th>
-              <td>1 / 2</td>
+              <td>
+                <i class="fas fa-square"></i>
+                <i class="far fa-square"></i>
+              </td>
+              <td><i class="fas fa-check text-success"></i></td>
+              <td>00:32</td>
             </tr>
-            <tr>
+            <tr class="table-info">
               <th scope="row">2</th>
               <td>3 / 4</td>
+              <td><i class="fas fa-check text-success"></i></td>
+              <td>00:32</td>
             </tr>
-            <tr>
+            <tr class="table-info">
               <th scope="row">3</th>
               <td>6 / 6</td>
+              <td><i class="fas fa-times text-danger"></i></td>
+              <td>00:32</td>
             </tr>
-            <tr>
+            <tr class="table-info">
               <th scope="row">4</th>
               <td>5 / 8</td>
+              <td><i class="fas fa-times text-danger"></i></td>
+              <td>00:32</td>
             </tr>
-            <tr>
+            <tr class="table-info">
               <th scope="row">5</th>
               <td>4 / 10</td>
+              <td><i class="fas fa-check text-success"></i></td>
+              <td>00:32</td>
             </tr>
-            <tr>
+            <tr class="table-info">
               <th scope="row">6</th>
-              <td>7 / 12</td>
+              <td>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square correct-square"></i>
+                <i class="fas fa-square wrong-square"></i>
+                <i class="fas fa-square wrong-square"></i>
+                <i class="fas fa-square wrong-square"></i>
+              </td>
+              <td><i class="fas fa-times text-danger"></i></td>
+              <td>00:32</td>
             </tr>
           </tbody>
         </table>

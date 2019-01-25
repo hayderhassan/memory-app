@@ -79,6 +79,8 @@ $(document).ready(function() {
     goToNextLevel();
   });
 
+  showReport();
+
 });
 
 function numberInputKeypress(e) {
@@ -95,7 +97,6 @@ function numberInputKeyup(e) {
     currentInput++;
     $(this).attr("contenteditable", "false");
     if (currentInput === (2 * currentLevel)) {
-      checkNumbers();
       finishedLevel();
     } else {
       inputs[currentInput].focus();
@@ -164,8 +165,8 @@ function clearCards() {
   inputs[currentInput].focus();
 }
 
-function checkNumbers() {
-// A function to check if the numbers entered were the same
+function checkAnswers() {
+
 }
 
 function finishedLevel() {
@@ -250,7 +251,7 @@ function showReport() {
         results += level + ": " + prop + " = " + obj[prop] + "\n";
     }
   }
-  alert(results);
+  // alert(results);
 }
 
 function storeAnswers() {
